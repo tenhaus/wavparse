@@ -14,7 +14,7 @@ func init() {
 
 func TestHeader(t *testing.T) {
 	header := Header(wav)
-	if string(header) != "RIFF" {
+	if header != "RIFF" {
 		t.Fail()
 	}
 }
@@ -24,6 +24,13 @@ func TestHeader(t *testing.T) {
 func TestChunkSize(t *testing.T) {
 	size := ChunkSize(wav)
 	if size != 226232 {
+		t.Fail()
+	}
+}
+
+func TestFormat(t *testing.T) {
+	format := Format(wav)
+	if format != "WAVE" {
 		t.Fail()
 	}
 }
