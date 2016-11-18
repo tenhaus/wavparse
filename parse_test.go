@@ -8,7 +8,7 @@ import (
 var wav []byte
 
 func init() {
-	wav, _ = ioutil.ReadFile("322968.wav")
+	wav, _ = ioutil.ReadFile("test/322968.wav")
 }
 
 func TestHeader(t *testing.T) {
