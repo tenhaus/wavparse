@@ -58,23 +58,33 @@ func (wav *Wav) NumChannels() uint16 {
 }
 
 // SampleRate [24:4] little
-func (wav *Wav) SampleRate() string {
-	return "hi"
+func (wav *Wav) SampleRate() uint16 {
+	bytes := wav.Bytes[24 : 24+2]
+	rate := binary.LittleEndian.Uint16(bytes)
+	return rate
 }
 
 // ByteRate [28:4] little
-func (wav *Wav) ByteRate() string {
-	return "hi"
+// SampleRate * NumChannels * BitsPerSample/8
+func (wav *Wav) ByteRate() uint16 {
+	bytes := wav.Bytes[28 : 28+4]
+	rate := binary.LittleEndian.Uint16(bytes)
+	return rate
 }
 
 // BlockAlign [32:2] little
-func (wav *Wav) BlockAlign() string {
-	return "hi"
+// NumChannels * BitsPerSample/8
+func (wav *Wav) BlockAlign() uint16 {
+	bytes := wav.Bytes[32 : 32+2]
+	align := binary.LittleEndian.Uint16(bytes)
+	return align
 }
 
 // BitsPerSample [34:2] little
-func (wav *Wav) BitsPerSample() string {
-	return "hi"
+func (wav *Wav) BitsPerSample() uint16 {
+	bytes := wav.Bytes[34 : 34+2]
+	bps := binary.LittleEndian.Uint16(bytes)
+	return bps
 }
 
 // ExtraParamSize [34+2:2]

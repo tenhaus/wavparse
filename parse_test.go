@@ -65,13 +65,29 @@ func TestNumChannels(t *testing.T) {
 }
 
 func TestSampleRate(t *testing.T) {
+	rate := wav.SampleRate()
+	if rate != 44100 {
+		t.Fail()
+	}
 }
 
 func TestByteRate(t *testing.T) {
+	rate := wav.ByteRate()
+	if rate != 45328 {
+		t.Fail()
+	}
 }
 
 func TestBlockAlign(t *testing.T) {
+	align := wav.BlockAlign()
+	if align != 4 {
+		t.Fail()
+	}
 }
 
 func TestBitsPerSample(t *testing.T) {
+	bps := wav.BlockAlign()
+	if bps != 4 {
+		t.Fail()
+	}
 }
