@@ -5,15 +5,16 @@ import (
 	"testing"
 )
 
-var wav []byte
+var wav Wav
 
 // http://soundfile.sapp.org/doc/WaveFormat/
 func init() {
-	wav, _ = ioutil.ReadFile("test/322968.wav")
+	data, _ := ioutil.ReadFile("test/322968.wav")
+	New(&wav, data)
 }
 
 func TestHeader(t *testing.T) {
-	header := Header(wav)
+	header := wav.Header()
 	if header != "RIFF" {
 		t.Fail()
 	}
@@ -22,14 +23,14 @@ func TestHeader(t *testing.T) {
 // 226240 minus 8 bytes for ChunkID and ChunkSize which
 // are not included in the total
 func TestChunkSize(t *testing.T) {
-	size := ChunkSize(wav)
+	size := wav.ChunkSize()
 	if size != 226232 {
 		t.Fail()
 	}
 }
 
 func TestFormat(t *testing.T) {
-	format := Format(wav)
+	format := wav.Format()
 	if format != "WAVE" {
 		t.Fail()
 	}
