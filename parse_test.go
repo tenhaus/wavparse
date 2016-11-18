@@ -13,8 +13,8 @@ func init() {
 	New(&wav, data)
 }
 
-func TestHeader(t *testing.T) {
-	header := wav.Header()
+func TestChunkID(t *testing.T) {
+	header := wav.ChunkID()
 	if header != "RIFF" {
 		t.Fail()
 	}
@@ -34,4 +34,44 @@ func TestFormat(t *testing.T) {
 	if format != "WAVE" {
 		t.Fail()
 	}
+}
+
+func TestSubchunk1ID(t *testing.T) {
+	data := wav.Subchunk1ID()
+	if data != "fmt " {
+		t.Fail()
+	}
+}
+
+func TestSubchunk1Size(t *testing.T) {
+	size := wav.Subchunk1Size()
+	if size != 16 {
+		t.Fail()
+	}
+}
+
+func TestAudioFormat(t *testing.T) {
+	format := wav.AudioFormat()
+	if format != 3 {
+		t.Fail()
+	}
+}
+
+func TestNumChannels(t *testing.T) {
+	channels := wav.NumChannels()
+	if channels != 1 {
+		t.Fail()
+	}
+}
+
+func TestSampleRate(t *testing.T) {
+}
+
+func TestByteRate(t *testing.T) {
+}
+
+func TestBlockAlign(t *testing.T) {
+}
+
+func TestBitsPerSample(t *testing.T) {
 }
