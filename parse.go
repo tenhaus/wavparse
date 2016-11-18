@@ -87,19 +87,33 @@ func (wav *Wav) BitsPerSample() uint16 {
 	return bps
 }
 
-// ExtraParamSize [34+2:2]
-func (wav *Wav) ExtraParamSize() string {
-	return "hi"
+// ExtraParamSize [36:2] little
+func (wav *Wav) ExtraParamSize() uint16 {
+	// PCM doesn't have ExtraParamSize
+	if wav.AudioFormat() == 1 {
+		return 0
+	}
+
+	bytes := wav.Bytes[36 : 36+2]
+	extra := binary.LittleEndian.Uint16(bytes)
+	return extra
 }
 
-// ExtraParams [34+4:ExtraParamSize]
+// ExtraParams [34+2:2] little
 func (wav *Wav) ExtraParams() string {
-	return "hi"
+	// PCM doesn't have ExtraParams
+	if wav.AudioFormat() == 1 {
+		return ""
+	}
+
+	bytes := wav.Bytes[38:wav.ExtraParamSize()]
+	return string(bytes)
 }
 
-// Subchunk2ID [36:4]
+// Subchunk2ID [36:4] big
 func (wav *Wav) Subchunk2ID() string {
-	return "hi"
+	bytes := wav.Bytes[36 : 36+2]
+	return string(bytes)
 }
 
 // Subchunk2Size [40:4]
